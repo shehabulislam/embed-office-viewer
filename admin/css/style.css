@@ -1,0 +1,89 @@
+.dropbox-dropin-btn{
+    padding: 4px 20px !important;
+    font-size: 15px !important;
+    padding-bottom: 11px !important;
+    margin-left: 30px;
+}
+.eov_onedrive_btn{
+    padding: 3px 15px!important;
+    font-size: 15px !important;
+    padding-bottom: 5px !important;
+}
+.eov_onedrive_btn img {
+    margin-right: 5px;
+    vertical-align: bottom;
+}
+.eov_ondrive_doc input,
+#dropbox_cloud_file_url,
+#eov_google_document_url {
+    margin-right: 10px;
+}
+#eov_onedrive_optoin_client_id,
+#eov_ondeive_file_url {
+    margin-right: 30px;
+}
+#dropbox_connect {
+    
+}
+#google_empty_alert {
+    display: none;
+    transition: 0.5s;
+}
+.alert_text{
+    width: 450px;
+    height: 150px;
+    background: #fff;
+    position: fixed;
+    left: 50%;
+    right: 0;
+    top: 50%;
+    bottom: 0;
+    z-index: 999999;
+    transform: translate(-50%, -100%);
+    border-radius: 5px;
+}
+.alert_text .g_footer {
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+.alert_text a.g_ok {
+    margin-top: 11px;
+    margin-right: 14px;
+}
+.alert_text span {
+    position: absolute;
+    right: 13px;
+    top: 2px;
+    font-size: 20px;
+}
+.alert_text span:hover {
+    cursor: pointer;
+}
+.alert_text p {
+    padding: 23px;
+    font-size: 14px;
+}
+.google_alert_overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #545454;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    opacity: 0.9;
+}
+.document_source_btn .csf--button {
+    margin-right: 25px;
+    padding: 7px 15px !important;
+    border-radius: 3px !important;
+}
+.dropbox-dropin-btn {
+    padding: 7px 7px !important;
+}
+h3.doc_source_premium {
+    width: 100%;
+    float: left;
+}
