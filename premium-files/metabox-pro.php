@@ -239,6 +239,12 @@ if (class_exists('CSF')) {
                 'units' => array('px'),
             ),
             array(
+                'id' => 'eov_disbale_popout',
+                'type' => 'switcher',
+                'title' => 'Disable Pop-out',
+                'dependency' => [['eov_view_type', '==', 'gooogle'], ['eov_document_source', '==', 'library']],
+            ),
+            array(
                 'id' => 'eov_show_name',
                 'type' => 'switcher',
                 'title' => 'Show File Name in Top',

@@ -47,8 +47,8 @@ CSF::createSection($prefix, array(
                 'gooogle' => 'Google Doc Viewer',
                 'microsoft' => 'Microsoft Online Viewer',
             ),
-            'default' => 'gooogle',
-            //'class' => 'hayat-readyonly',
+            'default' => 'microsoft',
+            'class' => 'hayat-readyonly',
             'dependency' => array('eov_document_source', '==', 'library'),
         ),
         array(
@@ -94,7 +94,7 @@ CSF::createSection($prefix, array(
             'id' => 'eov_disbale_popout',
             'type' => 'switcher',
             'title' => 'Disable Pop-out',
-            //'class' => 'hayat-readyonly',
+            'class' => 'hayat-readyonly',
             'dependency' => [['eov_view_type', '==', 'gooogle'], ['eov_document_source', '==', 'library']],
         ),
         array(

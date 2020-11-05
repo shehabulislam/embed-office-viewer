@@ -105,39 +105,23 @@ function eov_add_simple_css()
 /*Readonly Fields*/
 
 .hayat-readyonly {
-
-    opacity: 0.75;
-
-    filter: blur(1px);
-
+    filter:invert(1);
 }
 
 
 
 .hayat-readyonly:hover:after {
-
     content: "This option is available in the Pro Version only.";
-
     position: absolute;
-
     top: 0;
-
     width: 95%;
-
     height: 100%;
-
     vertical-align: middle;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 20px;
-
     color: #2196F3;
-
 }
 </style>
 
@@ -149,95 +133,55 @@ function eov_add_simple_css()
 
 function ovp_load_textdomain()
 {
-
     load_plugin_textdomain('bplugins', false, dirname(__FILE__) . "/languages");
-
 }
-
 add_action("plugins_loaded", 'ovp_load_textdomain');
 
 /*Some Set-up*/
-
 define('OVP_PLUGIN_DIR', WP_PLUGIN_URL . '/' . plugin_basename(dirname(__FILE__)) . '/');
 
 //Remove post update massage and link
 
 function ovp_updated_messages($messages)
 {
-
     $messages['officeviewer'][1] = __('Updated ');
-
     return $messages;
-
 }
-
 add_filter('post_updated_messages', 'ovp_updated_messages');
 
 /*-------------------------------------------------------------------------------*/
-
 /*   Register Custom Post Types
-
 /*-------------------------------------------------------------------------------*/
-
 add_action('init', 'ovp_create_post_type');
-
 function ovp_create_post_type()
 {
-
     register_post_type('officeviewer',
-
         array(
-
             'labels' => array(
-
                 'name' => __('Office Viewer'),
-
                 'singular_name' => __('Office Documents'),
-
                 'add_new' => __('Add New'),
-
                 'add_new_item' => __('Add New'),
-
                 'edit_item' => __('Edit'),
-
                 'new_item' => __('New '),
-
                 'view_item' => __('View'),
-
                 'search_items' => __('Search'),
-
                 'not_found' => __('Sorry, we couldn\'t find the Doc file you are looking for.'),
-
             ),
-
             'public' => false,
-
             'show_ui' => true,
-
             'publicly_queryable' => true,
-
             'exclude_from_search' => true,
-
             'menu_position' => 14,
-
             'show_in_rest' => true,
-
             'menu_icon' => OVP_PLUGIN_DIR . '/img/icon.png',
-
             'has_archive' => false,
-
             'hierarchical' => false,
-
             'capability_type' => 'post',
-
             'rewrite' => array('slug' => 'officeviewer'),
-
             'supports' => array('title'),
-
         )
-
     );
-
 }
 
 /*-------------------------------------------------------------------------------*/
@@ -262,72 +206,42 @@ function ovp_create_post_type()
 
 function ovp_remove_row_actions($idtions)
 {
-
     global $post;
-
     if ($post->post_type == 'officeviewer') {
-
         unset($idtions['view']);
-
         unset($idtions['inline hide-if-no-js']);
-
     }
-
     return $idtions;
-
 }
 
 if (is_admin()) {
-
     add_filter('post_row_actions', 'ovp_remove_row_actions', 10, 2);
-
 }
 
 /*-------------------------------------------------------------------------------*/
-
 /* HIDE everything in PUBLISH metabox except Move to Trash & PUBLISH button
-
 /*-------------------------------------------------------------------------------*/
 
 function ovp_hide_publishing_actions()
 {
-
     $my_post_type = 'officeviewer';
-
     global $post;
-
     if ($post->post_type == $my_post_type) {
-
         echo '
-
                 <style type="text/css">
-
                     #misc-publishing-actions,
-
                     #minor-publishing-actions{
-
                         display:none;
-
                     }
-
                 </style>
-
             ';
-
     }
-
 }
-
 add_action('admin_head-post.php', 'ovp_hide_publishing_actions');
-
 add_action('admin_head-post-new.php', 'ovp_hide_publishing_actions');
-
 /*-------------------------------------------------------------------------------*/
-
 /* Change publish button to save.
-
 /*-------------------------------------------------------------------------------*/
-
 add_filter('gettext', 'ovp_change_publish_button', 10, 2);
 
 function ovp_change_publish_button($translation, $text)
