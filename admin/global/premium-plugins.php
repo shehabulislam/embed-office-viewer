@@ -12,7 +12,7 @@ function eov_premium_plugins()
 function eov_premium_plugins_callback()
 {
     ?>
-    <?php $plugins = wp_remote_get('http://localhost/freemius/premium-plugin/');?>
+    <?php $plugins = wp_remote_get('https://office-viewer.bplugins.com/premium-plugins-of-bplugins-llc/');?>
 
 <?php echo $plugins['body']; ?>
 
