@@ -95,7 +95,6 @@ CSF::createSection($prefix, array(
             'type' => 'switcher',
             'title' => 'Disable Pop-out',
             'class' => 'hayat-readyonly',
-            'dependency' => [['eov_view_type', '==', 'gooogle'], ['eov_document_source', '==', 'library']],
         ),
         array(
             'id' => 'eov_show_name',

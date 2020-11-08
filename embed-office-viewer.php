@@ -11,80 +11,43 @@
  * Domain Path:  /languages
  * @fs_premium_only /lib/functions.php, /premium-files/
  */
-
 if (!function_exists('eov_fs')) {
-
     // Create a helper function for easy SDK access.
-
     function eov_fs()
     {
-
         global $eov_fs;
-
         if (!isset($eov_fs)) {
-
             // Include Freemius SDK.
-
             require_once dirname(__FILE__) . '/freemius/start.php';
-
             $eov_fs = fs_dynamic_init(array(
-
                 'id' => '7003',
-
                 'slug' => 'embed-office-viewer',
-
                 'type' => 'plugin',
-
                 'public_key' => 'pk_0657e65491580bc23260341c9d8e0',
-
                 'is_premium' => true,
-
                 'premium_suffix' => 'Pro',
-
                 // If your plugin is a serviceware, set this option to false.
-
                 'has_premium_version' => true,
-
                 'has_addons' => false,
-
                 'has_paid_plans' => true,
-
                 'trial' => array(
-
                     'days' => 7,
-
                     'is_require_payment' => true,
-
                 ),
-
                 'menu' => array(
-
                     'slug' => 'edit.php?post_type=officeviewer',
-
-                    'first-path' => 'edit.php?post_type=officeviewer&page=opv_howto',
-
+                    'first-path' => 'edit.php?post_type=officeviewer&page=eov-support',
                 ),
-
                 // Set the SDK to work in a sandbox mode (for development & testing).
-
                 // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-
                 'secret_key' => 'sk_sjq0%^eH57?Q-hwtXI0&IGeM$>0xY',
-
             ));
-
         }
-
         return $eov_fs;
-
     }
-
     // Init Freemius.
-
     eov_fs();
-
     // Signal that SDK was initiated.
-
     do_action('eov_fs_loaded');
 
 }
@@ -98,17 +61,13 @@ register_activation_hook(__FILE__, 'eov_active_plugin');
 
 function eov_add_simple_css()
 {
-
     ?>
-
 <style>
 /*Readonly Fields*/
 
 .hayat-readyonly {
     filter:invert(1);
 }
-
-
 
 .hayat-readyonly:hover:after {
     content: "This option is available in the Pro Version only.";
@@ -126,11 +85,9 @@ function eov_add_simple_css()
 </style>
 
 <?php
-
 }
 
 // load textdomain
-
 function ovp_load_textdomain()
 {
     load_plugin_textdomain('bplugins', false, dirname(__FILE__) . "/languages");
@@ -141,7 +98,6 @@ add_action("plugins_loaded", 'ovp_load_textdomain');
 define('OVP_PLUGIN_DIR', WP_PLUGIN_URL . '/' . plugin_basename(dirname(__FILE__)) . '/');
 
 //Remove post update massage and link
-
 function ovp_updated_messages($messages)
 {
     $messages['officeviewer'][1] = __('Updated ');
@@ -189,19 +145,12 @@ function ovp_create_post_type()
 /*  Metabox
 
 /*-------------------------------------------------------------------------------*/
-
 // include_once('cmb2/init.php');
-
 // include_once('cmb2/example-functions.php');
-
 // //include_once('admin/codestar-framework/codestar-framework.php');
-
 // include_once('gutenblock/index.php');
-
 /*-------------------------------------------------------------------------------*/
-
 /*   Hide & Disabled View, Quick Edit and Preview Button
-
 /*-------------------------------------------------------------------------------*/
 
 function ovp_remove_row_actions($idtions)
@@ -246,49 +195,31 @@ add_filter('gettext', 'ovp_change_publish_button', 10, 2);
 
 function ovp_change_publish_button($translation, $text)
 {
-
     if ('officeviewer' == get_post_type()) {
-
         if ($text == 'Publish') {
-
             return 'Save';
-
         }
-
     }
-
     return $translation;
-
 }
 
 // ONLY MOVIE CUSTOM TYPE POSTS
-
 add_filter('manage_officeviewer_posts_columns', 'ST4_columns_head_only_officeviewer', 10);
-
 add_action('manage_officeviewer_posts_custom_column', 'ST4_columns_content_only_officeviewer', 10, 2);
-
 // CREATE TWO FUNCTIONS TO HANDLE THE COLUMN
 
 function ST4_columns_head_only_officeviewer($defaults)
 {
-
     $defaults['directors_name'] = 'ShortCode';
-
     return $defaults;
-
 }
 
 function ST4_columns_content_only_officeviewer($column_name, $post_ID)
 {
-
     if ($column_name == 'directors_name') {
-
         // show content of 'directors_name' column
-
         echo '<input onClick="this.select();" value="[office_doc id=' . $post_ID . ']" >';
-
     }
-
 }
 
 //Lets register our shortcode
@@ -400,56 +331,32 @@ add_action('edit_form_after_title', 'ovp_shortcode_area');
 
 function ovp_shortcode_area()
 {
-
     global $post;
-
     if ($post->post_type == 'officeviewer') {
-
         ?>
-
 <div>
-
     <label style="cursor: pointer;font-size: 13px; font-style: italic;" for="pdfp_shortcode">Copy this shortcode and
-
         paste it into your post, page, or text widget content:</label>
-
     <span style="display: block; margin: 5px 0; background:#1e8cbe; ">
-
         <input type="text" id="pdfp_shortcode"
             style="font-size: 12px; border: none; box-shadow: none;padding: 4px 8px; width:100%; background:transparent; color:white;"
             onfocus="this.select();" readonly="readonly" value="[office_doc id=<?php echo $post->ID; ?>]" />
-
-
-
     </span>
-
 </div>
-
 <?php
 
     }}
-
 // Adds a box to the main column on the Post and Page edit screens.
-
 function ovp_metabox()
 {
-
     add_meta_box(
-
         'donation',
-
         __('Support Office Viewer', 'ovp'),
-
         'ovp_review_req',
-
         'officeviewer',
-
         'side'
-
     );
-
 }
-
 add_action('add_meta_boxes', 'ovp_metabox');
 
 function ovp_review_req()
@@ -458,102 +365,18 @@ function ovp_review_req()
 <p>Need some improvement ? <a href="mailto:abuhayat.du@gmail.com">Please let me know </a> how can i improve the Plugin.</p>';}
 
 // Footer Review Request
-
 add_filter('admin_footer_text', 'ovp_admin_footer');
-
 function ovp_admin_footer($text)
 {
-
     if ('officeviewer' == get_post_type()) {
-
         $url = 'https://wordpress.org/support/plugin/embed-office-viewer/reviews/?filter=5#new-post';
-
         $text = sprintf(__('If you like <strong>Embed Office Viewer</strong> please leave us a <a href="%s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> rating. Your Review is very important to us as it helps us to grow more. ', 'h5ap-domain'), $url);
-
     }
-
     return $text;
-
 }
-
-// Developer Page - sub menu
-
-add_action('admin_menu', 'ovp_custom_submenu_page');
-
-function ovp_custom_submenu_page()
-{
-
-    add_submenu_page('edit.php?post_type=officeviewer', 'Developer', 'Developer', 'manage_options', 'ovp-developer', 'ovp_submenu_page_callback');
-
-}
-
-function ovp_submenu_page_callback()
-{
-
-    echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
-
-    echo '<h2>Developer</h2>
-
-		<h2>Md Abu hayat polash</h2>
-
-		<h3>Professional Web Developer</h3>
-
-		<h5>Hire Me : <a target="_blank" href="https://www.upwork.com/freelancers/~01c73e1e24504a195e">On Upwork.com</a></h5>
-
-		Email: <a href="mailto:abuhayat.du@gmail.com">abuhayat.du@gmail.com </a>
-
-		<h5>Skype: ah_polash</h5>
-
-		<h5>Web : <a target="_blank" href="http://abuhayatpolash.com">www.abuhayatpolash.com</a></h5>
-
-		<br />
-
-
-
-		';
-
-    echo '</div>';
-
-}
-
-//How to use
-
-add_action('admin_menu', 'opv_howto_page');
-
-function opv_howto_page()
-{
-
-    add_submenu_page('edit.php?post_type=officeviewer', 'How To Use', 'How To Use', 'manage_options', 'opv_howto', 'opv_howto_page_callback');
-
-}
-
-function opv_howto_page_callback()
-{
-
-    echo "<div class='wrap'><div id='icon-tools' class='icon32'></div>";
-
-    echo "<h2>How to use ? </h2>
-
-			<h2>We made a movie for you ! Watch it and learn. </h2>
-
-			<br/>
-
-			<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 85%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://www.youtube.com/embed//mUlMpuPMP5Q' frameborder='0' allowfullscreen></iframe></div>
-
-			<br />
-
-		";
-
-    echo '</div>';
-
-}
-
 /*
-
  * Code By Raju
-
  */
-
 function eov_admin_assets($screen)
 {
     $_screen = get_current_screen();
@@ -581,10 +404,6 @@ function eov_admin_assets($screen)
         }
 
         wp_localize_script('eov-google-js', 'api', $api);
-        // Box Picker
-        // wp_enqueue_script('eov-box-picker', 'https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/picker.no.react.js');
-        // wp_enqueue_style('eov-box-picker', 'https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/picker.css');
-        // Default
         wp_enqueue_style('eov-admin-css', plugin_dir_url(__FILE__) . 'admin/css/style.css');
         $option = get_option('eov_onedrive');
         $eov = array();
@@ -605,6 +424,11 @@ function eov_admin_assets($screen)
         wp_localize_script('eov-admin-js', 'eov', $eov);
 
     }
+    if ( $screen == 'officeviewer_page_eov-support' || $screen == 'officeviewer_page_eov-plugins-from-bplugins') {
+        wp_enqueue_style('eov-admin-css', plugin_dir_url(__FILE__) . 'admin/css/style.css');
+    }
+
+
 
 }
 add_action('admin_enqueue_scripts', 'eov_admin_assets');
@@ -623,7 +447,6 @@ function eov_add_script_footer()
 add_action("admin_header", 'eov_add_script_footer');
 
 add_filter('script_loader_src', 'add_id_to_script', 10, 2);
-
 function add_id_to_script($src, $handle)
 {
     if ($handle != 'dropboxjs') {
@@ -642,13 +465,9 @@ function unclean_url($good_protocol_url, $original_url, $_context)
     }
 
     if (false !== strpos($original_url, 'data-app-key')) {
-
         remove_filter('clean_url', 'unclean_url', 10, 3);
-
         $url_parts = parse_url($good_protocol_url);
-
         return $url_parts['scheme'] . '://' . $url_parts['host'] . $url_parts['path'] . "' id='dropboxjs' data-app-key='" . $dropbox_key . "";
-
     }
 
     return $good_protocol_url;
@@ -659,49 +478,34 @@ function eov_dropbox_script()
 {
     wp_enqueue_script('dropboxjs', 'https://www.dropbox.com/static/api/2/dropins.js', array(), '');
 }
-
 add_action('wp_enqueue_scripts', 'eov_dropbox_script');
-
 add_action('admin_enqueue_scripts', 'eov_dropbox_script');
 
 /*-------------------------------------------------------------------------------*/
-
 /*   FRAMEWORK + OTHER INC
-
 /*-------------------------------------------------------------------------------*/
 
 //require_once 'inc/cpt.php';
-
 require_once 'admin/codestar-framework/codestar-framework.php';
-
 // Free only code block
-
 if (eov_fs()->is_free_plan()) {
-
     require_once 'admin/codestar-framework/metabox-free.php';
-
     //require_once 'inc/shortcode-free.php';
-
     require_once 'admin/import-meta.php';
+    require_once 'admin/global/free-plugin-list.php';
+    require_once 'admin/global/help-usages.php';
+    require_once 'admin/global/premium-plugins.php';
 
     add_action('admin_head', 'eov_add_simple_css');
-
     //require_once 'premium-files/metabox-pro.php';
-
 }
 
 // Pro only code block
-
 if (eov_fs()->can_use_premium_code__premium_only()) {
-
     require_once 'premium-files/metabox-pro.php';
-
     require_once 'premium-files/shortcode-pro.php';
-
+    require_once 'premium-files/help-usages.php';
     require_once 'admin/import-meta.php';
-
     //require_once 'premium-files/widgets.php';
-
     //require_once 'premium-files/blocks/index.php';
-
 }
