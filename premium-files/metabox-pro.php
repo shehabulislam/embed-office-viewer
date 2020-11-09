@@ -192,10 +192,10 @@ if (class_exists('CSF')) {
                 'title' => 'Viewer',
                 'type' => 'radio',
                 'options' => array(
-                    'google' => 'Google Doc Viewer',
+                    'gooogle' => 'Google Doc Viewer',
                     'microsoft' => 'Microsoft Online Viewer',
                 ),
-                'default' => 'google',
+                'default' => 'microsoft',
                 //'class' => 'hayat-readyonly',
                 'dependency' => array('eov_document_source', '==', 'library'),
             ),
