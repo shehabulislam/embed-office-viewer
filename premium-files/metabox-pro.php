@@ -192,10 +192,10 @@ if (class_exists('CSF')) {
                 'title' => 'Viewer',
                 'type' => 'radio',
                 'options' => array(
-                    'google' => 'Google Doc Viewer',
+                    'gooogle' => 'Google Doc Viewer',
                     'microsoft' => 'Microsoft Online Viewer',
                 ),
-                'default' => 'google',
+                'default' => 'microsoft',
                 //'class' => 'hayat-readyonly',
                 'dependency' => array('eov_document_source', '==', 'library'),
             ),
@@ -237,6 +237,12 @@ if (class_exists('CSF')) {
                 ),
                 'desc' => '<p>Leave blank if you want to use viewer default height (900px)</p>',
                 'units' => array('px'),
+            ),
+            array(
+                'id' => 'eov_disbale_popout',
+                'type' => 'switcher',
+                'title' => 'Disable Pop-out',
+                'dependency' => [['eov_view_type', '==', 'gooogle'], ['eov_document_source', '==', 'library']],
             ),
             array(
                 'id' => 'eov_show_name',
