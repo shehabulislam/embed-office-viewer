@@ -17,7 +17,7 @@ If you have Office documents on your website or blog that you want your readers 
 
 == Demo ==
 
-Wanna see how it works? [Click Here To see demo ](http://bit.ly/33XTrTG "See Demo")  
+Wanna see how it works? [Click Here To see demo ](https://office-viewer.bplugins.com/ "See Demo")  
 
 = Some Benefits =
 
@@ -25,6 +25,15 @@ Wanna see how it works? [Click Here To see demo ](http://bit.ly/33XTrTG "See Dem
 - You don’t need to convert Office files for the web (e.g., PDF, HTML).
 - Anyone can view Office files from your website or blog, even if they don’t have Office.
 
+== Pro Features ==
+- Choose Document From Google Drive
+- Choose Document From OneDrive
+- Choose Document From Dropbox
+- View Document by Google Doc Viewer
+- Disable/Enable Pop-out
+- Show/Hide File Name in Top
+- Show/Hide Download Button on Top
+- Disbale/Enable Right Click
 
 
 = How It Works = 
