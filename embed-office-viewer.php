@@ -26,7 +26,7 @@ if ( !function_exists( 'eov_fs' ) ) {
                 'slug'           => 'embed-office-viewer',
                 'type'           => 'plugin',
                 'public_key'     => 'pk_0657e65491580bc23260341c9d8e0',
-                'is_premium'     => false,
+                'is_premium'     => true,
                 'premium_suffix' => 'Pro',
                 'has_addons'     => false,
                 'has_paid_plans' => true,
@@ -52,21 +52,24 @@ if ( !function_exists( 'eov_fs' ) ) {
 }
 
 // Import Old Data From CMB2
-function eov_active_plugin()
+// function eov_active_plugin()
+// {
+//     eov_import_meta();
+// }
+
+// register_activation_hook( __FILE__, 'eov_active_plugin' );
+add_action(
+    'init',
+    'eov_upgrade_function',
+    10,
+    2
+);
+function eov_upgrade_function()
 {
-    eov_import_meta();
-}
-
-register_activation_hook( __FILE__, 'eov_active_plugin' );
-
-add_action( 'init', 'eov_upgrade_function',10, 2);
- 
-function eov_upgrade_function() {
     if ( eov_fs()->is_free_plan() ) {
         eov_import_meta();
     }
 }
-
 
 function eov_add_simple_css()
 {
@@ -315,7 +318,6 @@ function ovp_add_shortcode( $atts )
         }
         
         ?>
-
 <div style="position:relative">
     <?php 
         if ( $right_click == '1' ) {
@@ -615,7 +617,6 @@ add_action( 'admin_enqueue_scripts', 'eov_dropbox_script' );
 //require_once 'inc/cpt.php';
 require_once 'admin/codestar-framework/codestar-framework.php';
 // Free only code block
-
 if ( eov_fs()->is_free_plan() ) {
     require_once 'admin/codestar-framework/metabox-free.php';
     //require_once 'inc/shortcode-free.php';
@@ -625,4 +626,13 @@ if ( eov_fs()->is_free_plan() ) {
     require_once 'admin/global/premium-plugins.php';
     add_action( 'admin_head', 'eov_add_simple_css' );
     //require_once 'premium-files/metabox-pro.php';
+}
+
+if ( eov_fs()->can_use_premium_code__premium_only() ) {
+    require_once 'premium-files/metabox-pro.php';
+    require_once 'premium-files/shortcode-pro.php';
+    require_once 'premium-files/help-usages.php';
+    require_once 'admin/import-meta.php';
+    //require_once 'premium-files/widgets.php';
+    //require_once 'premium-files/blocks/index.php';
 }
