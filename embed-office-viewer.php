@@ -4,7 +4,7 @@
  * Plugin Name: Office Viewer
  * Plugin URI:  http://bplugins.com
  * Description: You can Embed Microsoft Word, Excel And Powerpodint File in wordpress Using Office Viewer Plugin.
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: bPlugins LLC
  * Author URI: http://bPlugins.com
  * License: GPLv3
@@ -240,8 +240,7 @@ function ST4_columns_head_only_officeviewer( $defaults )
 function ST4_columns_content_only_officeviewer( $column_name, $post_ID )
 {
     if ( $column_name == 'directors_name' ) {
-        // show content of 'directors_name' column
-        echo  '<input onClick="this.select();" value="[office_doc id=' . $post_ID . ']" >' ;
+        echo  '<input onClick="this.select();" value="[office_doc id=' . $post_ID . ']" >';
     }
 }
 

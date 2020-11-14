@@ -4,11 +4,9 @@ function eov_import_meta()
 {
 
     $docs = new WP_Query([
-
         'post_type' => 'officeviewer',
-
-        'post_status' => 'publish',
-
+        'post_status' => 'any',
+        'posts_per_page' => -1
     ]);
 
     while ($docs->have_posts()): $docs->the_post();
