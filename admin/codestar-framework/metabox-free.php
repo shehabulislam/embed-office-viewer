@@ -48,7 +48,7 @@ CSF::createSection($prefix, array(
                 'microsoft' => 'Microsoft Online Viewer',
             ),
             'default' => 'microsoft',
-            'class' => 'hayat-readyonly',
+            // 'class' => 'hayat-readyonly',
             'dependency' => array('eov_document_source', '==', 'library'),
         ),
         array(

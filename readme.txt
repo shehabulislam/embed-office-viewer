@@ -1,17 +1,17 @@
 === Office Viewer - Embed MS Word, Excel, PowerPoint and Other Office Doc ===
 Contributors: abuhayat,shehabulislam, freemius
 Tags: Embed document, ms word, pdf, document viewer, office
-Tested up to: 5.5
-Stable tag: 2.0.2
+Tested up to: 5.7.2
+Stable tag: 2.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-View Microsoft Word, Excel And Powerpoint File in wordpress Using shortcode.
+View / Embed Microsoft Word, Excel, Powerpoint, more. files in wordpress Using shortcode. It provides a user friendly interface that help you manage your files easily. 
 
 
 == Description ==
 
-View Microsoft Word, Excel And Powerpodint File in wordpress Using shortcode.
+View Microsoft Word, Excel, Powerpoint, more... files in wordpress Using shortcode.
 
 If you have Office documents on your website or blog that you want your readers to view even if they don’t have Office installed?  Would you rather view a document before downloading it?  To give your audience a better experience, try the Office Web Viewer.
 
@@ -90,3 +90,7 @@ Thanks for your interest. You can donate any amount by visiting  [Here](https://
 * Added doc management screen
 * Improved performance.
 * Gutenberg block support
+
+= 2.0.9 =
+* PDF viewer support
+* Improved performance

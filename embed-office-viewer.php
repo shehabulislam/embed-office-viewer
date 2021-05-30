@@ -4,7 +4,7 @@
  * Plugin Name: Office Viewer
  * Plugin URI:  http://bplugins.com
  * Description: You can Embed Microsoft Word, Excel And Powerpodint File in wordpress Using Office Viewer Plugin.
- * Version: 2.0.2
+ * Version: 2.0.9
  * Author: bPlugins LLC
  * Author URI: http://bPlugins.com
  * License: GPLv3
@@ -311,101 +311,51 @@ function ovp_add_shortcode( $atts )
             style="display:inline;margin-bottom:10px;">Download
             File</button></a></p>
 
-<?php 
-            }
-        
-        }
-        
-        ?>
-<div style="position:relative">
-    <?php 
-        if ( $right_click == '1' ) {
-            ?>
-    <div id="wrapper" style="position: relative;">
+<?php }
+    } ?>
+<div style="position:relative;width:<?php echo $width ?>px;height:<?php echo $height ?>px;margin:0 auto;">
+    <?php if ( $right_click == '1' ) { ?>
+    <div id="wrapper" style="position: relative;" class="ovp_wrapper">
         <div id="block" style="position: absolute; top: 0; left: 0; width: 100%; height: 600%"></div>
-        <?php 
-        }
-        ?>
+        <?php } ?>
 
-        <?php 
-        
-        if ( $document_source == 'library' ) {
-            
-            if ( $view_type == 'microsoft' ) {
-                ?>
-        <iframe src="<?php 
-                echo  $url ;
-                ?>" width="<?php 
-                echo  $width ;
-                ?>" height="<?php 
-                echo  $height ;
-                ?>"
+        <?php  if ( $document_source == 'library' ) {            
+            if ( $view_type == 'microsoft' ) { ?>
+        <iframe src="<?php echo  $url ;?>" width="<?php echo  $width ;?>" height="<?php 
+                echo  $height ;?>"
             frameborder="0"></iframe>
         <?php 
             } else {
                 clearstatcache();
-                echo  '<iframe id="s_pdf_frame" src="' . $base_url . $doc_file . '" style="float:left; padding:10px;' . $frame_style . '" frameborder="0"></iframe>' ;
-            }
-        
+                echo  '<iframe id="s_pdf_frame" src="' . $base_url . $doc_file . '" style="margin:0 auto; padding:10px;' . $frame_style . '" frameborder="0"></iframe>' ;
+            }        
         } elseif ( $document_source == 'google' ) {
             clearstatcache();
-            echo  '<iframe id="s_pdf_frame" src="' . $google_document . '" style="float:left; padding:10px;' . $frame_style . '" frameborder="0"></iframe>' ;
-        } elseif ( $document_source == 'onedrive' ) {
-            ?>
-
-        <iframe src="<?php 
-            echo  $eov_onedrive_document ;
-            ?>" width="<?php 
-            echo  $width ;
-            ?>"
-            height="<?php 
-            echo  $height ;
-            ?>" frameborder="0" scrolling="no"></iframe>
+            echo  '<iframe id="s_pdf_frame" src="' . $google_document . '" style="margin:0 auto; padding:10px;' . $frame_style . '" frameborder="0"></iframe>' ;
+        } elseif ( $document_source == 'onedrive' ) { ?>
+        <iframe src="<?php echo  $eov_onedrive_document ;?>" width="<?php echo $width ;?>" height="<?php echo  $height ;?>" frameborder="0" scrolling="no"> 
+        </iframe>
 
         <?php 
-        } elseif ( $document_source == 'dropbox' ) {
-            ?>
+        } elseif ( $document_source == 'dropbox' ) {  ?>
         <div style="display: inline-block">
-            <a href="<?php 
-            echo  $dropbox_doc_file ;
-            ?>" class="dropbox-embed" data-height="<?php 
-            echo  $height ;
-            ?>px"
-                data-width="<?php 
-            echo  $width ;
-            ?>px"></a>
+            <a href="<?php echo  $dropbox_doc_file ;?>" class="dropbox-embed" data-height="<?php echo  $height ;?>px" data-width="<?php echo  $width ; ?>px">
+            </a>
         </div>
-        <?php 
-        }
-        
-        ?>
-
-        <?php 
-        if ( $right_click == '1' ) {
-            ?>
-    </div><?php 
-        }
-        ?>
-    <?php 
-        if ( $disable_popout == '1' ) {
-            ?>
+        <?php  } ?><?php 
+        if ( $right_click == '1' ) {  ?>
+    </div><?php } ?>
+    <?php if ( $disable_popout == '1' ) {  ?>
     <div style="width: 80px;height: 80px;position: absolute;opacity: 0;right: 18px;top: 0px;"></div>
-    <?php 
-        }
-        ?>
+    <?php  }  ?>
 </div>
-<?php 
-    }
-    
-    ?>
+<?php } ?>
 
 <?php 
     $output = ob_get_clean();
     return $output;
     //print $output; // debug
-    ?>
 
-<?php 
 }
 
 add_shortcode( 'office_doc', 'ovp_add_shortcode' );
