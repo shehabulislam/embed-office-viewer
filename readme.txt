@@ -1,8 +1,8 @@
-=== Office Viewer - Embed MS Word, Excel, PowerPoint and Other Office Doc ===
+=== Document Viewer for Office ===
 Contributors: abuhayat,shehabulislam, freemius
-Tags: Embed document, ms word, pdf, document viewer, office
-Tested up to: 5.7.2
-Stable tag: 2.0.9
+Tags: Embed document, ms word, pdf, document viewer
+Tested up to: 5.8
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,3 +94,7 @@ Thanks for your interest. You can donate any amount by visiting  [Here](https://
 = 2.0.9 =
 * PDF viewer support
 * Improved performance
+
+= 2.2.3 = 
+* Fixed Security issue
+* Imporved Performance

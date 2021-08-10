@@ -72,8 +72,7 @@ function eov_support_page_callback()
         <div class="bplugins-features">
             <div class="col col-12">
                 <div class="bplugins-feature center">
-                    <h1>Video Tutorials</h1><br/>
-                    <div class="embed-container"><iframe width="100%" height="700" src="https://www.youtube.com/embed/mUlMpuPMP5Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <h1><a href="https://www.youtube.com/embed/mUlMpuPMP5Q">Video Tutorials</a></h1><br/>
                 </div>
             </div>
         </div>

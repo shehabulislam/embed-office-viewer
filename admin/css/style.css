@@ -235,14 +235,14 @@ h3.doc_source_premium {
   }
 }
 
-.h5vp_wrap {
+.eov_wrap {
   background: #ffffff;
   padding: 20px;
 }
-.h5vp_wrap .contact h5 {
+.eov_wrap .contact h5 {
   font-size: 16px;
 }
-.h5vp_wrap h2 {
+.eov_wrap h2 {
   font-size: 40px;
 }
 
@@ -315,4 +315,99 @@ h3.doc_source_premium {
   font-size: 20px;
   font-weight: bold;
   line-height: 0;
+}
+.eov_playlist_shortcode {
+  margin-top: 30px;
+  border: 5px solid #4527a4;
+  overflow: hidden;
+}
+.eov_playlist_shortcode .shortcode-heading {
+  background: #4527a4;
+  padding: 15px;
+  overflow: hidden;
+  color: #ffffff;
+}
+.eov_playlist_shortcode .shortcode-heading .icon {
+  float: left;
+  overflow: hidden;
+  width: 50%;
+}
+.eov_playlist_shortcode .shortcode-heading .text {
+  float: right;
+  overflow: hidden;
+  text-align: right;
+}
+.eov_playlist_shortcode .shortcode-heading .text a {
+  color: #ffffff;
+  display: block;
+  text-decoration: none;
+}
+.eov_playlist_shortcode .shortcode-left {
+  width: 50%;
+  float: left;
+  overflow: hidden;
+  padding: 20px 0 30px;
+  text-align: center;
+  background: #ffffff;
+  border-right: 5px solid #4527a4;
+  box-sizing: border-box;
+}
+.eov_playlist_shortcode .shortcode-right {
+  width: 50%;
+  float: left;
+  overflow: hidden;
+  padding: 20px 0 30px;
+  text-align: center;
+  background: #ffffff;
+}
+.eov_playlist_shortcode .shortcode {
+  padding: 8px 15px;
+  background: #eae6f9;
+  display: inline-block;
+  user-select: all;
+  font-size: 16px;
+}
+/* shortcode copy to clipboard */
+#eov_copied {
+  margin-left: 15px;
+}
+.eov_front_shortcode input {
+  cursor: pointer;
+}
+.eov_front_shortcode {
+  position: relative;
+  display: inline-block;
+}
+
+.eov_front_shortcode .htooltip {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.eov_front_shortcode .htooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.eov_front_shortcode:hover .htooltip {
+  visibility: visible;
+  opacity: 1;
 }

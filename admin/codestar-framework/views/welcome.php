@@ -38,7 +38,7 @@ if ( ! class_exists( 'CSF_Welcome' ) ) {
 
     public function add_page_welcome() {
 
-      $section = ( ! empty( $_GET[ 'section' ] ) ) ? sanitize_text_field( wp_unslash( $_GET[ 'section' ] ) ) : '';
+      $section = ( ! empty( $_GET['section'] ) ) ? sanitize_text_field( wp_unslash( $_GET['section'] ) ) : '';
 
       CSF::include_plugin_file( 'views/header.php' );
 
@@ -114,17 +114,18 @@ if ( ! class_exists( 'CSF_Welcome' ) ) {
 
       if ( ! empty( $demo_mode ) ) {
 
-        CSF::include_plugin_file( 'samples/options.samples.php' );
+        CSF::include_plugin_file( 'samples/admin-options.php' );
 
         if ( CSF::$premium ) {
 
-          CSF::include_plugin_file( 'samples/customize-options.samples.php' );
-          CSF::include_plugin_file( 'samples/metabox.samples.php'           );
-          CSF::include_plugin_file( 'samples/profile-options.samples.php'   );
-          CSF::include_plugin_file( 'samples/shortcoder.samples.php'        );
-          CSF::include_plugin_file( 'samples/taxonomy-options.samples.php'  );
-          CSF::include_plugin_file( 'samples/widgets.samples.php'           );
-          CSF::include_plugin_file( 'samples/comment-metabox.samples.php'   );
+          CSF::include_plugin_file( 'samples/customize-options.php' );
+          CSF::include_plugin_file( 'samples/metabox-options.php'   );
+          CSF::include_plugin_file( 'samples/nav-menu-options.php'  );
+          CSF::include_plugin_file( 'samples/profile-options.php'   );
+          CSF::include_plugin_file( 'samples/shortcode-options.php' );
+          CSF::include_plugin_file( 'samples/taxonomy-options.php'  );
+          CSF::include_plugin_file( 'samples/widget-options.php'    );
+          CSF::include_plugin_file( 'samples/comment-options.php'   );
 
         }
 

@@ -119,28 +119,3 @@ CSF::createSection($prefix, array(
 
     ),
 ));
-// Create a section
-/*  CSF::createSection( $prefix, array(
-'title'  => 'Viewer Settings (Optional)',
-'fields' => array(
-// A textarea field
-
-)
-) );
- */
-
-// function eov_exclude_fields_before_save( $data ) {
-
-//   $exclude = array(
-//     'eov_view_type'
-//   );
-
-//   foreach ( $exclude as $id ) {
-//     unset( $data[$id] );
-//   }
-
-//   return $data;
-
-// }
-
-// add_filter( 'csf_sc__save', 'eov_exclude_fields_before_save', 10, 1 );

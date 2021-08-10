@@ -1,5 +1,5 @@
 /**
- * 11. Responsive
+ * 12. Responsive
  */
 @media only screen and (max-width:1200px){
 
@@ -69,7 +69,7 @@
     display: none !important;
   }
 
-  .csf-content{
+  .csf-nav-normal + .csf-content{
     margin-left: 0;
   }
 
@@ -89,6 +89,15 @@
     .csf-fieldset{
       float: none;
       width: 100%;
+    }
+  }
+
+  .csf-field-color{
+
+    .button.wp-picker-clear{
+      padding: 0 8px;
+      line-height: 2.14285714;
+      min-height: 32px;
     }
   }
 
@@ -125,7 +134,7 @@
     }
   }
 
-  .csf-profile,
+  .csf-profile-options,
   .csf-taxonomy-edit-fields{
 
     > .csf-field{
@@ -139,6 +148,18 @@
       > .csf-fieldset{
         float: none;
         width: 100%;
+      }
+    }
+  }
+
+  .csf-nav-menu-options{
+
+    > .csf-fields{
+      margin-left: -10px;
+      margin-right: -10px;
+
+      > .csf-field{
+        padding: 10px;
       }
     }
   }
