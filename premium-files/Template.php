@@ -1,18 +1,26 @@
 <?php
 namespace EOV\Services;
+use EOV\Model\Style;
 
-class Template{
+class Template extends Style{
 
     protected static $style = [];
-    protected static $uniqid = null;
+    public static $uniqid = null;
     
     public static function html($data){
         self::createId();
+        self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => '600%']);
+        self::addStyle("#".self::$uniqid, ['position' => 'relative', 'width' => $data['width'], 'height' => $data['height'], 'margin' => '0 auto']);
+        self::addStyle("#".self::$uniqid ." .disablePopout", ['width' => '80px;height: 200px;position: absolute;opacity: 0;right: 0px;top: 0px;']);
         
-        ob_start(); ?>
-        Pro template
+        ob_start(); 
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+        ?>
+        <!-- Pro template -->
         <style>
-            <?php echo esc_html(self::style($data)); ?>
+            <?php echo esc_html(self::renderStyle()); ?>
         </style>
         <?php
         self::pdfNotice($data['docFile'], $data['viewer']);
@@ -22,20 +30,20 @@ class Template{
         $base_url = '//docs.google.com/gview?embedded=true&url=';
     
         ?>
-    <div id="<?php echo esc_attr(self::$uniqid); ?>">
+    <div id="<?php echo esc_attr(self::$uniqid); ?>" class="eov_wrapper">
         <?php
         if ( $data['source'] == 'library' ) {
-            if ( $data['showName'] == '1' ) {
+            if ( $data['showName'] ) {
                 echo  '<p>File Name : ' . esc_html(basename( $data['docFile']  )) . '</p>' ;
             }
-            if ( $data['downloadBtn'] == '1' ) { ?>
+            if ( $data['downloadBtn'] ) { ?>
             <p>
                 <a style="margin-bottom: 10px;" download href="<?php echo  esc_attr($data['docFile'] ) ; ?>">
                     <button style="display:inline;margin-bottom:10px;">Download File </button>
                 </a>
             </p>
         <?php } } 
-        if ( $data['rightClick'] == '1' ) { ?>
+        if ( $data['rightClick'] ) { ?>
         <div id="wrapper" style="position: relative;" class="eov_wrapper">
             <div id="block"></div>
             <?php } 
@@ -52,8 +60,8 @@ class Template{
         } elseif ( $data['source'] == 'dropbox' ) {
             self::dropboxFrame($data);    
         }
-        if ( $data['rightClick'] == '1' ) { echo "</div>"; } 
-        if ( $data['disablePopout'] == '1' ) {  ?>
+        if ( $data['rightClick']) { echo "</div>"; } 
+        if ( $data['disablePopout'] ) {  ?>
             <div class="disablePopout"></div>
      <?php } ?>
     </div>
@@ -74,13 +82,13 @@ class Template{
 
     public static function googleFrame($data){
         ?>
-        <iframe id="s_pdf_frame" src="<?php echo  esc_url($data['googleDoc']); ?>" style="margin:0 auto; padding:10px;<?Php echo 'width:' . $data['width'] . 'height:' . $data['height']; ?>" frameborder="0"></iframe>' ;
+        <iframe id="s_pdf_frame" src="<?php echo  esc_url($data['googleDoc']); ?>" style="margin:0 auto; padding:10px;<?Php echo 'width:' . $data['width'] . ';height:' . $data['height']; ?>" frameborder="0"></iframe>' ;
         <?php
     }
 
     public static function oneDriveFrame($data){
         ?>
-        <iframe src="<?php echo  $data['oneDriveDoc'] ;?>" width="<?php echo $width ;?>" height="<?php echo  $height ;?>" frameborder="0" scrolling="no"></iframe>
+        <iframe src="<?php echo  $data['oneDriveDoc'] ;?>" width="<?php echo $data['width'] ;?>" height="<?php echo  $data['height'] ;?>" frameborder="0" scrolling="no"></iframe>
         <?php
     }
 
@@ -93,12 +101,18 @@ class Template{
         <?php
     }
 
+    /**
+     * Google Doc Viewer
+     */
     public static function googleViewer($data){
         ?>
-        <iframe id="s_pdf_frame" src="//docs.google.com/gview?embedded=true&url=<?php echo $data['docFile']; ?>" style="margin:0 auto; padding:10px;<?php echo 'width:' . $data['width'] . 'height:' . $data['height'] ?>" frameborder="0"></iframe>
+        <iframe id="s_pdf_frame" src="//docs.google.com/gview?embedded=true&url=<?php echo $data['docFile']; ?>" style="margin:0 auto; padding:10px;<?php echo 'width:' . $data['width'] . ';height:' . $data['height'] ?>" frameborder="0"></iframe>
         <?php
     }
 
+    /**
+     * Microsoft Doc Viewer
+     */
     public static function microsoftViewer($data){
         ?>
         <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $data['docFile'] ;?>" width="<?php echo $data['width'] ;?>" height="<?php echo  $data['height'] ;?>" frameborder="0"></iframe>
@@ -113,30 +127,4 @@ class Template{
             self::$uniqid = "eov".uniqid();
         }
     }
-
-    public static function style($data){
-        self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'left' => '0', 'width' => '100%', 'height' => '600%']);
-        self::addStyle("#".self::$uniqid, ['position' => 'relative', 'width' => $data['width'], 'height' => $data['height'], 'margin' => '0 auto']);
-        self::addStyle("#".self::$uniqid ." .disablePopout", ['width' => '80px;height: 80px;position: absolute;opacity: 0;right: 18px;top: 0px;']);
-
-        $stylesheet = '';
-        foreach(self::$style as $selector => $style){
-            $stylesheet .= " $selector{";
-            foreach($style as $property => $value){
-                $stylesheet .= $property.":".$value.";";
-            }
-            $stylesheet .= '}';
-        }
-        return $stylesheet;
-    }
-
-    public static function addStyle($selector, $style){
-        if(isset(self::$style[$selector])){
-            array_push(self::$style[$selector], $style);
-        }else {
-            self::$style[$selector] = $style;
-        }
-        return false;
-    }
-
 }

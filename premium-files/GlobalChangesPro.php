@@ -12,16 +12,16 @@ class GlobalChangesPro{
 
     public static function instance(){
         if(self::$_instance === null){
-            self::$_instaance = new self();
+            self::$_instance = new self();
         }
-        return self::$_instance();
+        return self::$_instance;
     }
 
     function add_id_to_script( $src, $handle ){
         if ( $handle != 'dropboxjs' ) {
             return $src;
         }
-        return $src . '" id="dropboxjs" data-app-key="MY_APP_KEY"';
+        return $src . '" data-app-key="MY_APP_KEY"';
     }
     function unclean_url( $good_protocol_url, $original_url, $_context ){
         $dropbox_key = '';

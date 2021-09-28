@@ -25,8 +25,10 @@ class AnalogSystem{
             'googleDoc' => Functions::meta( $id, 'eov_google_document', true ),
             'dropboxDoc' => Functions::meta( $id, 'eov_dropbox_document', true ),
             'oneDriveDoc' => Functions::meta( $id, 'eov_onedrive_document', true ),
-            'width' => $width['width'].'px',
-            'height' => $height['height'].'px',
+            'width' => $width['width'] == '' ? '640px' : $width['width'].'px',
+            'height' => $height['height'] == '' ? '842px' : $height['height'].'px',
         ];
+
+       
     }
 }

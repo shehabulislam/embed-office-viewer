@@ -2,6 +2,7 @@
 require_once(__DIR__.'/inc/Helper/Functions.php');
 require_once(__DIR__.'/inc/Helper/DefaultArgs.php');
 require_once(__DIR__.'/inc/PostType/OfficeViewer.php');
+require_once(__DIR__.'/inc/Model/Style.php');
 require_once(__DIR__.'/inc/Model/AnalogSystem.php');
 require_once 'inc/Services/Shortcode.php';
 
@@ -24,6 +25,7 @@ if ( eov_fs()->can_use_premium_code__premium_only() ) {
     require_once 'premium-files/shortcode-pro.php';
     require_once 'premium-files/help-usages.php';
     require_once 'premium-files/EnqueueAssets.php';
+    require_once 'premium-files/GlobalChangesPro.php';
     require_once 'admin/import-meta.php';
     require_once(__DIR__.'/premium-files/Template.php');
 }

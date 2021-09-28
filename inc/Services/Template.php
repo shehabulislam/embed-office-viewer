@@ -1,5 +1,6 @@
 <?php
 namespace EOV\Services;
+use EOV\Model\Style;
 
 class Template{
 
@@ -8,7 +9,10 @@ class Template{
     
     public static function html($data){
         self::createId();
-        ob_start(); ?>
+        $style = new Style();
+        $style::addStyle("#".self::$uniqid, ['position' => 'relative', 'width' => $data['width'], 'height' => $data['height'], 'margin' => '0 auto']);
+        ob_start(); 
+        ?>
         <style>
             <?php echo esc_html(self::style($data)); ?>
         </style>
