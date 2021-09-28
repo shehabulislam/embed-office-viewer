@@ -194,6 +194,7 @@ if (class_exists('CSF')) {
                 'options' => array(
                     'gooogle' => 'Google Doc Viewer',
                     'microsoft' => 'Microsoft Online Viewer',
+                    'js' => 'JS Viewer',
                 ),
                 'default' => 'microsoft',
                 //'class' => 'hayat-readyonly',

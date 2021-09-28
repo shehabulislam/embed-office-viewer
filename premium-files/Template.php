@@ -10,7 +10,7 @@ class Template extends Style{
     public static function html($data){
         self::createId();
         self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => '600%']);
-        self::addStyle("#".self::$uniqid, ['position' => 'relative', 'width' => $data['width'], 'height' => $data['height'], 'margin' => '0 auto']);
+        self::addStyle("#".self::$uniqid, ['position' => 'relative', 'width' => $data['width'], 'margin' => '0 auto']);
         self::addStyle("#".self::$uniqid ." .disablePopout", ['width' => '80px;height: 200px;position: absolute;opacity: 0;right: 0px;top: 0px;']);
         
         ob_start(); 
@@ -46,13 +46,27 @@ class Template extends Style{
         if ( $data['rightClick'] ) { ?>
         <div id="wrapper" style="position: relative;" class="eov_wrapper">
             <div id="block"></div>
+            <script>
+                setTimeout(() => {
+                document.getElementById(`s_pdf_frame`).contentWindow.document.oncontextmenu = function (e) {
+                    // alert("Right Click Disabled");
+                    e.preventDefault();
+                };
+                }, 1000);
+                document.oncontextmenu = function (e) {
+                // alert("Right Click Disabled");
+                e.preventDefault();
+                };
+            </script>
             <?php } 
-        if ( $data['source'] == 'library' ) {            
+        if ( $data['source'] == 'library' ) {
             if ( $data['viewer'] == 'microsoft' ) { 
                 self::microsoftViewer($data);
-            } else { 
+            } else if($data['viewer'] == 'gooogle'){ 
                 self::googleViewer($data);
-            }        
+            }else if ($data['viewer'] == 'js'){
+                self::jsViewer($data);
+            }
         } elseif ( $data['source'] == 'google' ) { 
             self::googleFrame($data);
         } elseif ( $data['source'] == 'onedrive' ) { 
@@ -82,20 +96,20 @@ class Template extends Style{
 
     public static function googleFrame($data){
         ?>
-        <iframe id="s_pdf_frame" src="<?php echo  esc_url($data['googleDoc']); ?>" style="margin:0 auto; padding:10px;<?Php echo 'width:' . $data['width'] . ';height:' . $data['height']; ?>" frameborder="0"></iframe>' ;
+        <iframe id="s_pdf_frame" src="<?php echo  esc_url($data['googleDoc']); ?>" style="margin:0 auto; padding:10px;<?Php echo 'width:' . esc_attr($data['width']) . ';height:' . esc_attr($data['height']); ?>" frameborder="0"></iframe>' ;
         <?php
     }
 
     public static function oneDriveFrame($data){
         ?>
-        <iframe src="<?php echo  $data['oneDriveDoc'] ;?>" width="<?php echo $data['width'] ;?>" height="<?php echo  $data['height'] ;?>" frameborder="0" scrolling="no"></iframe>
+        <iframe id="s_pdf_frame" src="<?php echo  esc_url($data['oneDriveDoc']) ;?>" width="<?php echo esc_attr($data['width']) ;?>" height="<?php echo  esc_attr($data['height']) ;?>" frameborder="0" scrolling="no"></iframe>
         <?php
     }
 
     public static function dropboxFrame($data){
         ?>
         <div style="display: inline-block">
-            <a href="<?php echo $data['dropboxDoc'] ;?>" class="dropbox-embed" data-height="<?php echo $data['height'] ;?>" data-width="<?php echo $data['width'] ; ?>">
+            <a href="<?php echo esc_url($data['dropboxDoc']) ;?>" class="dropbox-embed" data-height="<?php echo esc_attr($data['height']) ;?>" data-width="<?php echo esc_attr($data['width']) ; ?>">
             </a>
         </div>
         <?php
@@ -106,7 +120,7 @@ class Template extends Style{
      */
     public static function googleViewer($data){
         ?>
-        <iframe id="s_pdf_frame" src="//docs.google.com/gview?embedded=true&url=<?php echo $data['docFile']; ?>" style="margin:0 auto; padding:10px;<?php echo 'width:' . $data['width'] . ';height:' . $data['height'] ?>" frameborder="0"></iframe>
+        <iframe id="s_pdf_frame" src="//docs.google.com/gview?embedded=true&url=<?php echo esc_url($data['docFile']); ?>" style="margin:0 auto; padding:10px;<?php echo 'width:' . esc_attr($data['width']) . ';height:' . esc_attr($data['height']) ?>" frameborder="0"></iframe>
         <?php
     }
 
@@ -115,7 +129,17 @@ class Template extends Style{
      */
     public static function microsoftViewer($data){
         ?>
-        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $data['docFile'] ;?>" width="<?php echo $data['width'] ;?>" height="<?php echo  $data['height'] ;?>" frameborder="0"></iframe>
+        <iframe id="s_pdf_frame" src="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  esc_url($data['docFile']) ;?>" width="<?php echo esc_attr($data['width']) ;?>" height="<?php echo  esc_attr($data['height']) ;?>" frameborder="0"></iframe>
+        <?php
+    }
+
+    /**
+     * js viewer
+     */
+    public static function jsViewer($data){
+        ?>
+        <iframe id="s_pdf_frame" src="<?php echo EOV_PLUGIN_DIR."premium-files/pdfjs/web/viewer.php?file=". esc_url($data['docFile']); ?>" width="<?php echo esc_attr($data['width']); ?>" height="<?php echo esc_attr($data['height']) ?>"></iframe>
+        
         <?php
     }
 

@@ -12,7 +12,7 @@ class DefaultArgs{
     public static function office_doc(){
         return [
             'source' => '',
-            'viewer' => '',
+            'viewer' => 'gooogle',
             'showName' => false,
             'downloadBtn' => false,
             'rightClick' => false,

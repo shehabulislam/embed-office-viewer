@@ -43,7 +43,7 @@ class Template{
     }
     public static function googleViewer($data){
         ?>
-        <iframe id="s_pdf_frame" src="//docs.google.com/gview?embedded=true&url=<?php echo esc_url($data['docFile']); ?>" style="margin:0 auto; padding:10px;<?php echo 'width:' . esc_attr($data['width']) . 'height:' . esc_attr($data['height']) ?>" frameborder="0"></iframe>
+        <iframe id="s_pdf_frame" src="//docs.google.com/gview?embedded=true&url=<?php echo esc_url($data['docFile']); ?>" style="margin:0 auto; padding:10px;<?php echo 'width:' . esc_attr($data['width']) . ';height:' . esc_attr($data['height']) ?>" frameborder="0"></iframe>
         <?php
     }
 

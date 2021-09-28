@@ -16,7 +16,7 @@ class AnalogSystem{
         $height =  Functions::meta( $id, 'eov_document_height', ['height' => '900'] );
         return [
             'source' => Functions::meta( $id, 'eov_document_source', 'library' ),
-            'viewer' => Functions::meta( $id, 'eov_view_type', 'google' ),
+            'viewer' => Functions::meta( $id, 'eov_view_type', 'gooogle' ),
             'showName' => Functions::meta( $id, 'eov_show_name', true ),
             'downloadBtn' => Functions::meta( $id, 'eov_download_button', true ),
             'rightClick' => Functions::meta( $id, 'eov_right_click', true ),

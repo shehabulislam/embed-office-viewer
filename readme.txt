@@ -2,7 +2,7 @@
 Contributors: abuhayat,shehabulislam, freemius
 Tags: Embed document, ms word, pdf, document viewer
 Tested up to: 5.8
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,18 +83,25 @@ Thanks for your interest. You can donate any amount by visiting  [Here](https://
 
 == Changelog ==
 
-= 1.0 =
-* Initial Release
+= 2.2.4 =
+* Fixed Height issue
+
+= 2.2.3 = 
+* Fixed Security issue
+* Imporved Performance
+
+= 2.0.9 =
+* PDF viewer support
+* Improved performance
 
 = 1.1 =
 * Added doc management screen
 * Improved performance.
 * Gutenberg block support
 
-= 2.0.9 =
-* PDF viewer support
-* Improved performance
+= 1.0 =
+* Initial Release
 
-= 2.2.3 = 
-* Fixed Security issue
-* Imporved Performance
+
+
+
