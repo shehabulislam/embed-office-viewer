@@ -54,6 +54,7 @@ function onPickerApiLoad() {
 }
 
 function handleAuthResult(authResult) {
+  console.log({ authResult });
   if (authResult && !authResult.error) {
     oauthToken = authResult.access_token;
     createPicker();
@@ -81,6 +82,7 @@ function createPicker() {
 
 // A simple callback implementation.
 function pickerCallback(data) {
+  console.log("callback");
   if (data.action == google.picker.Action.PICKED) {
     console.log(data);
     var embedUrl = data.docs[0].embedUrl;

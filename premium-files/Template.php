@@ -96,7 +96,7 @@ class Template extends Style{
 
     public static function googleFrame($data){
         ?>
-        <iframe id="s_pdf_frame" src="<?php echo  esc_url($data['googleDoc']); ?>" style="margin:0 auto; padding:10px;<?Php echo 'width:' . esc_attr($data['width']) . ';height:' . esc_attr($data['height']); ?>" frameborder="0"></iframe>' ;
+        <iframe id="s_pdf_frame" src="<?php echo  esc_url($data['googleDoc']); ?>" style="margin:0 auto; padding:10px;<?Php echo 'width:' . esc_attr($data['width']) . ';height:' . esc_attr($data['height']); ?>" frameborder="0"></iframe>
         <?php
     }
 
