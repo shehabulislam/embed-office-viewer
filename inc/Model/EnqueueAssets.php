@@ -19,6 +19,12 @@ class EnqueueAssets{
     }
 
     public function publicAssets(){
+        wp_enqueue_script(
+            'eov',
+            EOV_PLUGIN_DIR .'assets/js/script.js',
+            array(),
+            ''
+        );
         
     }
 

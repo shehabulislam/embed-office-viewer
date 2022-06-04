@@ -17,7 +17,7 @@ class Template{
             <?php echo esc_html(self::style($data)); ?>
         </style>
         <?php self::pdfNotice($data['docFile'], $data['viewer']); ?>
-        <div id="<?php echo esc_attr(self::$uniqid); ?>">
+        <div id="<?php echo esc_attr(self::$uniqid); ?>" class="eov_doc">
             <?php
             if ( $data['source'] == 'library' ) {            
                 if ( $data['viewer'] == 'microsoft' ) { 

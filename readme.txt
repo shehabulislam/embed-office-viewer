@@ -1,8 +1,8 @@
 === Document Viewer for Office ===
 Contributors: abuhayat,shehabulislam, freemius
 Tags: Embed document, ms word, pdf, document viewer
-Tested up to: 5.9
-Stable tag: 2.2.5
+Tested up to: 6.0
+Stable tag: 2.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,9 @@ Thanks for your interest. You can donate any amount by visiting  [Here](https://
 
 
 == Changelog ==
+
+= 2.2.6 =
+* fixed document loading issue
 
 = 2.2.5 =
 * Update Freemius WordPress SDK

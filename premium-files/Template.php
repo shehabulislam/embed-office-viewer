@@ -30,7 +30,7 @@ class Template extends Style{
         $base_url = '//docs.google.com/gview?embedded=true&url=';
     
         ?>
-    <div id="<?php echo esc_attr(self::$uniqid); ?>" class="eov_wrapper">
+    <div id="<?php echo esc_attr(self::$uniqid); ?>" class="eov_wrapper eov_doc">
         <?php
         if ( $data['source'] == 'library' ) {
             if ( $data['showName'] ) {
