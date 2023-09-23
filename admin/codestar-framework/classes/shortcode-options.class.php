@@ -44,19 +44,21 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
       $this->pre_tabs     = $this->pre_tabs( $this->sections );
       $this->pre_sections = $this->pre_sections( $this->sections );
 
-      add_action( 'admin_footer', array( &$this, 'add_footer_modal_shortcode' ) );
-      add_action( 'customize_controls_print_footer_scripts', array( &$this, 'add_footer_modal_shortcode' ) );
-      add_action( 'wp_ajax_csf-get-shortcode-'. $this->unique, array( &$this, 'get_shortcode' ) );
+      add_action( 'admin_footer', array( $this, 'add_footer_modal_shortcode' ) );
+      add_action( 'customize_controls_print_footer_scripts', array( $this, 'add_footer_modal_shortcode' ) );
+      add_action( 'wp_ajax_csf-get-shortcode-'. $this->unique, array( $this, 'get_shortcode' ) );
 
       if ( ! empty( $this->args['show_in_editor'] ) ) {
 
-        CSF::$shortcode_instances[$this->unique] = wp_parse_args( array( 'hash' => md5( $key ), 'modal_id' => $this->unique ), $this->args );
+        $name = str_replace( '_', '-', sanitize_title( $this->unique ) );
+
+        CSF::$shortcode_instances[] = wp_parse_args( array( 'name' => 'csf/'. $name, 'modal_id' => $this->unique ), $this->args );
 
         // elementor editor support
         if ( CSF::is_active_plugin( 'elementor/elementor.php' ) ) {
           add_action( 'elementor/editor/before_enqueue_scripts', array( 'CSF', 'add_admin_enqueue_scripts' ) );
           add_action( 'elementor/editor/footer', array( 'CSF_Field_icon', 'add_footer_modal_icon' ) );
-          add_action( 'elementor/editor/footer', array( &$this, 'add_footer_modal_shortcode' ) );
+          add_action( 'elementor/editor/footer', array( $this, 'add_footer_modal_shortcode' ) );
         }
 
       }
@@ -224,6 +226,8 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
 
             echo '<div class="csf-fields">';
 
+            echo ( ! empty( $section['description'] ) ) ? '<div class="csf-field csf-section-description">'. $section['description'] .'</div>' : '';
+
             foreach ( $section['fields'] as $field ) {
 
               if ( in_array( $field['type'], $unallows ) ) { $field['_notice'] = true; }
@@ -308,13 +312,21 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
     // Add gutenberg blocks.
     public static function add_guteberg_blocks() {
 
-      wp_enqueue_script( 'csf-gutenberg-block', CSF::include_plugin_url( 'assets/js/gutenberg.js' ), array( 'wp-blocks', 'wp-editor', 'wp-element', 'wp-components' ) );
+      $depends = array( 'wp-blocks', 'wp-element', 'wp-components' );
+
+      if ( wp_script_is( 'wp-edit-widgets' ) ) {
+        $depends[] = 'wp-edit-widgets';
+      } else {
+        $depends[] = 'wp-edit-post';
+      }
+
+      wp_enqueue_script( 'csf-gutenberg-block', CSF::include_plugin_url( 'assets/js/gutenberg.js' ), $depends );
 
       wp_localize_script( 'csf-gutenberg-block', 'csf_gutenberg_blocks', CSF::$shortcode_instances );
 
-      foreach ( CSF::$shortcode_instances as $value ) {
+      foreach ( CSF::$shortcode_instances as $block ) {
 
-        register_block_type( 'csf-gutenberg-block/block-'. $value['hash'], array(
+        register_block_type( $block['name'], array(
           'editor_script' => 'csf-gutenberg-block',
         ) );
 

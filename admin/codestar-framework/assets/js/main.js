@@ -146,11 +146,13 @@
   $.fn.csf_nav_options = function() {
     return this.each( function() {
 
-      var $nav   = $(this),
-          $links = $nav.find('a'),
+      var $nav    = $(this),
+          $window = $(window),
+          $wpwrap = $('#wpwrap'),
+          $links  = $nav.find('a'),
           $last;
 
-      $(window).on('hashchange csf.hashchange', function() {
+      $window.on('hashchange csf.hashchange', function() {
 
         var hash  = window.location.hash.replace('#tab=', '');
         var slug  = hash ? hash : $links.first().attr('href').replace('#tab=', '');
@@ -182,6 +184,11 @@
           $('.csf-section-id').val( $section.index()+1 );
 
           $last = $section;
+
+          if ( $wpwrap.hasClass('wp-responsive-open') ) {
+            $('html, body').animate({scrollTop:($section.offset().top-50)}, 200);
+            $wpwrap.removeClass('wp-responsive-open');
+          }
 
         }
 
@@ -338,7 +345,7 @@
 
             var offsetTop = $this.offset().top,
                 stickyTop = Math.max(offset, offsetTop - scrollTop ),
-                winWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                winWidth  = $window.innerWidth();
 
             if ( stickyTop <= offset && winWidth > 782 ) {
               $inner.css({width: $this.outerWidth()-padding});
@@ -626,8 +633,7 @@
       var $this    = $(this),
           $inputs  = $this.find('input'),
           settings = $this.find('.csf-date-settings').data('settings'),
-          wrapper  = '<div class="csf-datepicker-wrapper"></div>',
-          $datepicker;
+          wrapper  = '<div class="csf-datepicker-wrapper"></div>';
 
       var defaults = {
         showAnim: '',
@@ -668,6 +674,41 @@
 
         $input.datepicker(settings);
 
+      });
+
+    });
+  };
+
+  //
+  // Field: datetime
+  //
+  $.fn.csf_field_datetime = function() {
+    return this.each( function() {
+
+      var $this    = $(this),
+          $inputs  = $this.find('input'),
+          settings = $this.find('.csf-datetime-settings').data('settings');
+
+      settings = $.extend({}, settings, {
+        onReady: function( selectedDates, dateStr, instance) {
+          $(instance.calendarContainer).addClass('csf-flatpickr');
+        },
+      });
+
+      if ( $inputs.length === 2 ) {
+        settings = $.extend({}, settings, {
+          onChange: function( selectedDates, dateStr, instance) {
+            if ( $(instance.element).data('type') === 'from' ) {
+              $inputs.last().get(0)._flatpickr.set( 'minDate', selectedDates[0] );
+            } else {
+              $inputs.first().get(0)._flatpickr.set( 'maxDate', selectedDates[0] );
+            }
+          },
+        });
+      }
+
+      $inputs.each( function() {
+        $(this).flatpickr(settings);
       });
 
     });
@@ -773,17 +814,19 @@
   $.fn.csf_field_group = function() {
     return this.each( function() {
 
-      var $this     = $(this),
-          $fieldset = $this.children('.csf-fieldset'),
-          $group    = $fieldset.length ? $fieldset : $this,
-          $wrapper  = $group.children('.csf-cloneable-wrapper'),
-          $hidden   = $group.children('.csf-cloneable-hidden'),
-          $max      = $group.children('.csf-cloneable-max'),
-          $min      = $group.children('.csf-cloneable-min'),
-          field_id  = $wrapper.data('field-id'),
-          is_number = Boolean( Number( $wrapper.data('title-number') ) ),
-          max       = parseInt( $wrapper.data('max') ),
-          min       = parseInt( $wrapper.data('min') );
+      var $this           = $(this),
+          $fieldset    = $this.children('.csf-fieldset'),
+          $group       = $fieldset.length ? $fieldset : $this,
+          $wrapper     = $group.children('.csf-cloneable-wrapper'),
+          $hidden      = $group.children('.csf-cloneable-hidden'),
+          $max         = $group.children('.csf-cloneable-max'),
+          $min         = $group.children('.csf-cloneable-min'),
+          title_by     = $wrapper.data('title-by'),
+          title_prefix = $wrapper.data('title-by-prefix'),
+          field_id     = $wrapper.data('field-id'),
+          is_number    = Boolean( Number( $wrapper.data('title-number') ) ),
+          max          = parseInt( $wrapper.data('max') ),
+          min          = parseInt( $wrapper.data('min') );
 
       // clear accordion arrows if multi-instance
       if ( $wrapper.hasClass('ui-accordion') ) {
@@ -813,12 +856,35 @@
 
           if ( $panel.length && !$panel.data( 'opened' ) ) {
 
-            var $fields = $panel.children();
-            var $first  = $fields.first().find(':input').first();
-            var $title  = $header.find('.csf-cloneable-value');
+            var $title = $header.find('.csf-cloneable-value');
+            var inputs = [];
 
-            $first.on('change keyup', function( event ) {
-              $title.text($first.val());
+            $.each(title_by, function( key, title_key ) {
+              inputs.push($panel.find( '[data-depend-id="'+ title_key +'"]' ));
+            });
+
+            $.each(inputs, function( key, $input ) {
+
+              $input.on('change keyup csf.keyup', function() {
+
+                var titles = [];
+
+                $.each(inputs, function( key, $input ) {
+
+                  var input_value = $input.val();
+
+                  if ( input_value ) {
+                    titles.push( input_value );
+                  }
+
+                });
+
+                if ( titles.length ) {
+                  $title.text( titles.join( title_prefix ) );
+                }
+
+              }).trigger('csf.keyup');
+
             });
 
             $panel.csf_reload_script();
@@ -1303,7 +1369,7 @@
             thumbnail = attributes.sizes.thumbnail.url;
           } else if ( typeof attributes.sizes !== 'undefined' && typeof attributes.sizes.full !== 'undefined' ) {
             thumbnail = attributes.sizes.full.url;
-          } else if ( attributes.url.split('.').pop().toLowerCase() === 'svg' ) {
+          } else if ( attributes.type === 'image' ) {
             thumbnail = attributes.url;
           } else {
             thumbnail = attributes.icon;
@@ -2091,16 +2157,10 @@
           $input         = $this.find('input'),
           $upload_button = $this.find('.csf--button'),
           $remove_button = $this.find('.csf--remove'),
+          $preview_wrap  = $this.find('.csf--preview'),
+          $preview_src   = $this.find('.csf--src'),
           $library       = $upload_button.data('library') && $upload_button.data('library').split(',') || '',
           wp_media_frame;
-
-      $input.on('change', function( e ) {
-        if ( $input.val() ) {
-          $remove_button.removeClass('hidden');
-        } else {
-          $remove_button.addClass('hidden');
-        }
-      });
 
       $upload_button.on('click', function( e ) {
 
@@ -2123,6 +2183,7 @@
 
         wp_media_frame.on( 'select', function() {
 
+          var src;
           var attributes = wp_media_frame.state().get('selection').first().attributes;
 
           if ( $library.length && $library.indexOf(attributes.subtype) === -1 && $library.indexOf(attributes.type) === -1 ) {
@@ -2140,6 +2201,29 @@
       $remove_button.on('click', function( e ) {
         e.preventDefault();
         $input.val('').trigger('change');
+      });
+
+      $input.on('change', function( e ) {
+
+        var $value = $input.val();
+
+        if ( $value ) {
+          $remove_button.removeClass('hidden');
+        } else {
+          $remove_button.addClass('hidden');
+        }
+
+        if ( $preview_wrap.length ) {
+
+          if ( $.inArray( $value.split('.').pop().toLowerCase(), ['jpg', 'jpeg', 'gif', 'png', 'svg', 'webp'] ) !== -1 ) {
+            $preview_wrap.removeClass('hidden');
+            $preview_src.attr('src', $value);
+          } else {
+            $preview_wrap.addClass('hidden');
+          }
+
+        }
+
       });
 
     });
@@ -2529,14 +2613,14 @@
             }
 
             if ( sub_shortcode_value !== '' ) {
-              shortcode += ' ' + sub_shortcode_tag.replace('-', '_') + '="' + sub_shortcode_value.toString() + '"';
+              shortcode += ' ' + sub_shortcode_tag + '="' + sub_shortcode_value.toString() + '"';
             }
 
           });
 
         } else {
 
-          shortcode += ' ' + shortcode_tag.replace('-', '_') + '="' + shortcode_value.toString() + '"';
+          shortcode += ' ' + shortcode_tag + '="' + shortcode_value.toString() + '"';
 
         }
 
@@ -3174,7 +3258,7 @@
         return;
       }
 
-      $input.on('change keyup', function() {
+      $input.on('change keyup csf.change', function() {
 
         var obj = $this.find(':input').serializeObjectCSF();
         var val = ( !$.isEmptyObject(obj) && obj[unique_id] && obj[unique_id][option_id] ) ? obj[unique_id][option_id] : '';
@@ -3228,21 +3312,33 @@
   // Widgets Framework
   //
   $.fn.csf_widgets = function() {
-    if ( this.length ) {
+    return this.each( function() {
 
       $(document).on('widget-added widget-updated', function( event, $widget ) {
-        $widget.find('.csf-fields').csf_reload_script();
+
+        var $fields = $widget.find('.csf-fields');
+
+        if ( $fields.length ) {
+          $fields.csf_reload_script();
+        }
+
+      });
+
+      $(document).on('click', '.widget-top', function( event ) {
+
+        var $fields = $(this).parent().find('.csf-fields');
+
+        if ( $fields.length ) {
+          $fields.csf_reload_script();
+        }
+
       });
 
       $('.widgets-sortables, .control-section-sidebar').on('sortstop', function( event, ui ) {
         ui.item.find('.csf-fields').csf_reload_script_retry();
       });
 
-      $(document).on('click', '.widget-top', function( event ) {
-        $(this).parent().find('.csf-fields').csf_reload_script();
-      });
-
-    }
+    });
   };
 
   //
@@ -3301,6 +3397,7 @@
         $this.children('.csf-field-background').csf_field_background();
         $this.children('.csf-field-code_editor').csf_field_code_editor();
         $this.children('.csf-field-date').csf_field_date();
+        $this.children('.csf-field-datetime').csf_field_datetime();
         $this.children('.csf-field-fieldset').csf_field_fieldset();
         $this.children('.csf-field-gallery').csf_field_gallery();
         $this.children('.csf-field-group').csf_field_group();
@@ -3372,7 +3469,8 @@
     $('.csf-confirm').csf_confirm();
     $('.csf-expand-all').csf_expand_all();
     $('.csf-onload').csf_reload_script();
-    $('.widget').csf_widgets();
+    $('#widgets-editor').csf_widgets();
+    $('#widgets-right').csf_widgets();
     $('#menu-to-edit').csf_nav_menu();
 
   });

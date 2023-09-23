@@ -21,6 +21,7 @@ class AnalogSystem{
             'downloadBtn' => Functions::meta( $id, 'eov_download_button', true ),
             'rightClick' => Functions::meta( $id, 'eov_right_click', true ),
             'disablePopout' => Functions::meta( $id, 'eov_disbale_popout', true ),
+            'disableFullscreen' => Functions::meta( $id, 'eov_disable_fullscreen', false ),
             'docFile' => Functions::meta( $id, 'eov_document', true ),
             'googleDoc' => Functions::meta( $id, 'eov_google_document', true ),
             'dropboxDoc' => Functions::meta( $id, 'eov_dropbox_document', true ),

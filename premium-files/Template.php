@@ -9,14 +9,21 @@ class Template extends Style{
     
     public static function html($data){
         self::createId();
-        self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => '600%']);
         self::addStyle("#".self::$uniqid, ['position' => 'relative', 'width' => $data['width'], 'margin' => '0 auto']);
         self::addStyle("#".self::$uniqid ." .disablePopout", ['width' => '80px;height: 200px;position: absolute;opacity: 0;right: 0px;top: 0px;']);
-        
+
+        $isPPTX =  pathinfo($data['docFile'], PATHINFO_EXTENSION) === 'pptx';
+        if($isPPTX){
+            self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => 'calc(100% - 30px)']);
+        }else {
+            self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => '600%']);
+        }
+
+        if($data['disableFullscreen']){
+            self::addStyle("#".self::$uniqid.' #disableFullscreen', ['position' => 'absolute', 'bottom' => '0', 'right' => '0px', 'width' => '100px', 'height' => '50px']);
+        }
+
         ob_start(); 
-        // echo "<pre>";
-        // print_r($data);
-        // echo "</pre>";
         ?>
         <!-- Pro template -->
         <style>
@@ -46,6 +53,7 @@ class Template extends Style{
         if ( $data['rightClick'] ) { ?>
         <div id="wrapper" style="position: relative;" class="eov_wrapper">
             <div id="block"></div>
+            <div id="disableFullscreen"></div>
             <script>
                 setTimeout(() => {
                 document.getElementById(`s_pdf_frame`).contentWindow.document.oncontextmenu = function (e) {

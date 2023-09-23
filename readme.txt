@@ -1,23 +1,24 @@
 === Document Viewer for Office ===
 Contributors: abuhayat,shehabulislam, freemius
 Tags: Embed document, ms word, pdf, document viewer
-Tested up to: 6.0
+Tested up to: 6.3
 Stable tag: 2.2.6
+Requires PHP: 7.1
+Donate link: https://www.buymeacoffee.com/abuhayat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-View / Embed Microsoft Word, Excel, Powerpoint, more. files in wordpress Using shortcode. It provides a user friendly interface that help you manage your files easily. 
+View / Embed Microsoft Word, Excel, Powerpoint, and more. files in WordPress Using shortcode. It provides a user-friendly interface that helps you manage your files easily. 
 
 
 == Description ==
 
-View Microsoft Word, Excel, Powerpoint, more... files in wordpress Using shortcode.
+View Microsoft Word, Excel, Powerpoint, more... files in WordPress using shortcode.
 
 If you have Office documents on your website or blog that you want your readers to view even if they don’t have Office installed?  Would you rather view a document before downloading it?  To give your audience a better experience, try the Office Web Viewer.
 
-== Demo ==
-
-Wanna see how it works? [Click Here To see demo ](https://office-viewer.bplugins.com/ "See Demo")  
+**[See Live Demo](https://bplugins.com/products/document-viewer/#demos "Demo")** 
+**[Buy The Pro](https://bplugins.com/products/document-viewer/#pricing "Buy Pro version")** 
 
 = Some Benefits =
 
@@ -58,11 +59,11 @@ e.g.
 
 == Frequently Asked Questions ==
 
-= Which type of document can i embed using that plugin ? =
+= Which type of document can I embed using that plugin? =
 
-Microsoft Word, Excel And Powerpoint Document
+Microsoft Word, Excel, And Powerpoint Document
 
-= What should be the file extension to work perfectly with that plugin ?  =
+= What should be the file extension to work perfectly with that plugin?  =
 
 '.ppt' '.pptx' '.doc', '.docx', '.xls', '.xlsx'
 
@@ -82,9 +83,6 @@ Thanks for your interest. You can donate any amount by visiting  [Here](https://
 
 
 == Changelog ==
-
-= 2.2.6 =
-* fixed document loading issue
 
 = 2.2.5 =
 * Update Freemius WordPress SDK

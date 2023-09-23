@@ -59,7 +59,7 @@ if ( ! class_exists( 'CSF_Options' ) ) {
       'admin_bar_menu_priority' => 50,
 
       // footer
-      'footer_text'             => '',
+      'footer_text'             => 'Thank you for creating with Codestar Framework',
       'footer_after'            => '',
       'footer_credit'           => '',
 
@@ -104,12 +104,12 @@ if ( ! class_exists( 'CSF_Options' ) ) {
       $this->set_options();
       $this->save_defaults();
 
-      add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
-      add_action( 'admin_bar_menu', array( &$this, 'add_admin_bar_menu' ), $this->args['admin_bar_menu_priority'] );
-      add_action( 'wp_ajax_csf_'. $this->unique .'_ajax_save', array( &$this, 'ajax_save' ) );
+      add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+      add_action( 'admin_bar_menu', array( $this, 'add_admin_bar_menu' ), $this->args['admin_bar_menu_priority'] );
+      add_action( 'wp_ajax_csf_'. $this->unique .'_ajax_save', array( $this, 'ajax_save' ) );
 
       if ( $this->args['database'] === 'network' && ! empty( $this->args['show_in_network'] ) ) {
-        add_action( 'network_admin_menu', array( &$this, 'add_admin_menu' ) );
+        add_action( 'network_admin_menu', array( $this, 'add_admin_menu' ) );
       }
 
       // wp enqeueu for typography and output css
@@ -186,7 +186,11 @@ if ( ! class_exists( 'CSF_Options' ) ) {
     // add admin bar menu
     public function add_admin_bar_menu( $wp_admin_bar ) {
 
-      if( is_network_admin() && ( $this->args['database'] !== 'network' || $this->args['show_in_network'] !== true ) ) {
+      if ( ! current_user_can( $this->args['menu_capability'] ) ) {
+        return;
+      }
+
+      if ( is_network_admin() && ( $this->args['database'] !== 'network' || $this->args['show_in_network'] !== true ) ) {
         return;
       }
 
@@ -438,14 +442,14 @@ if ( ! class_exists( 'CSF_Options' ) ) {
 
       if ( $menu_type === 'submenu' ) {
 
-        $menu_page = call_user_func( 'add_submenu_page', $menu_parent, esc_attr( $menu_title ), esc_attr( $menu_title ), $menu_capability, $menu_slug, array( &$this, 'add_options_html' ) );
+        $menu_page = call_user_func( 'add_submenu_page', $menu_parent, esc_attr( $menu_title ), esc_attr( $menu_title ), $menu_capability, $menu_slug, array( $this, 'add_options_html' ) );
 
       } else {
 
-        $menu_page = call_user_func( 'add_menu_page', esc_attr( $menu_title ), esc_attr( $menu_title ), $menu_capability, $menu_slug, array( &$this, 'add_options_html' ), $menu_icon, $menu_position );
+        $menu_page = call_user_func( 'add_menu_page', esc_attr( $menu_title ), esc_attr( $menu_title ), $menu_capability, $menu_slug, array( $this, 'add_options_html' ), $menu_icon, $menu_position );
 
         if ( ! empty( $sub_menu_title ) ) {
-          call_user_func( 'add_submenu_page', $menu_slug, esc_attr( $sub_menu_title ), esc_attr( $sub_menu_title ), $menu_capability, $menu_slug, array( &$this, 'add_options_html' ) );
+          call_user_func( 'add_submenu_page', $menu_slug, esc_attr( $sub_menu_title ), esc_attr( $sub_menu_title ), $menu_capability, $menu_slug, array( $this, 'add_options_html' ) );
         }
 
         if ( ! empty( $this->args['show_sub_menu'] ) && count( $this->pre_tabs ) > 1 ) {
@@ -465,7 +469,7 @@ if ( ! class_exists( 'CSF_Options' ) ) {
 
       }
 
-      add_action( 'load-'. $menu_page, array( &$this, 'add_page_on_load' ) );
+      add_action( 'load-'. $menu_page, array( $this, 'add_page_on_load' ) );
 
     }
 
@@ -485,13 +489,14 @@ if ( ! class_exists( 'CSF_Options' ) ) {
 
       }
 
-      add_filter( 'admin_footer_text', array( &$this, 'add_admin_footer_text' ) );
+      if ( ! empty( $this->args['footer_credit'] ) ) {
+        add_filter( 'admin_footer_text', array( $this, 'add_admin_footer_text' ) );
+      }
 
     }
 
     public function add_admin_footer_text() {
-      $default = 'Thank you for creating with <a href="http://codestarframework.com/" target="_blank">Codestar Framework</a>';
-      echo ( ! empty( $this->args['footer_credit'] ) ) ? $this->args['footer_credit'] : $default;
+      echo wp_kses_post( $this->args['footer_credit'] );
     }
 
     public function error_check( $sections, $err = '' ) {
@@ -552,7 +557,7 @@ if ( ! class_exists( 'CSF_Options' ) ) {
         echo '<div class="csf-header-inner">';
 
           echo '<div class="csf-header-left">';
-          echo '<h1>'. esc_html($this->args['framework_title']) .'</h1>';
+          echo '<h1>'. $this->args['framework_title'] .'</h1>';
           echo '</div>';
 
           echo '<div class="csf-header-right">';
@@ -560,7 +565,7 @@ if ( ! class_exists( 'CSF_Options' ) ) {
             $notice_class = ( ! empty( $this->notice ) ) ? 'csf-form-show' : '';
             $notice_text  = ( ! empty( $this->notice ) ) ? $this->notice : '';
 
-            echo '<div class="csf-form-result csf-form-success '. esc_attr( $notice_class ) .'">'. esc_html($notice_text) .'</div>';
+            echo '<div class="csf-form-result csf-form-success '. esc_attr( $notice_class ) .'">'. $notice_text .'</div>';
 
             echo ( $this->args['show_form_warning'] ) ? '<div class="csf-form-result csf-form-warning">'. esc_html__( 'You have unsaved changes, save your changes!', 'csf' ) .'</div>' : '';
 

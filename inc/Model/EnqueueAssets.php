@@ -25,7 +25,6 @@ class EnqueueAssets{
             array(),
             ''
         );
-        
     }
 
     public function adminAssets($screen){

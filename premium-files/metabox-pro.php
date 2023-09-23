@@ -262,6 +262,12 @@ if (class_exists('CSF')) {
                 'type' => 'switcher',
                 'title' => 'Disable Right Click',
             ),
+            array(
+                'id' => 'eov_disable_fullscreen',
+                'type' => 'switcher',
+                'title' => 'Disable Fullscreen',
+                'default' => 0
+            ),
 
         ),
     ));
