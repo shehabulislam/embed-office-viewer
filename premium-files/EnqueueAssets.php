@@ -44,7 +44,7 @@ class EnqueueAssets{
                 'eov-admin-js',
                 EOV_PLUGIN_DIR . 'admin/js/script.js',
                 array( 'jquery', 'dropboxjs', 'eov-microsoft-js' ),
-                ''
+                time()
             );
             // OneDrive Picker
             wp_enqueue_script( 'eov-microsoft-js', 'https://js.live.net/v7.2/OneDrive.js' );

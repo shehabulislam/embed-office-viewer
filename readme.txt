@@ -1,21 +1,28 @@
-=== Document Viewer for Office ===
-Contributors: abuhayat,shehabulislam, freemius
+=== Document Viewer- Best WordPress Plugin to Display MS Office Docs ===
+Contributors: bplugins,shehabulislam, freemius
 Tags: Embed document, ms word, pdf, document viewer
-Tested up to: 6.3
-Stable tag: 2.2.6
+Requires at least: 5.6
+Tested up to: 6.5.2
+Stable tag: 2.2.8
 Requires PHP: 7.1
 Donate link: https://www.buymeacoffee.com/abuhayat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-View / Embed Microsoft Word, Excel, Powerpoint, and more. files in WordPress Using shortcode. It provides a user-friendly interface that helps you manage your files easily. 
-
+With the Document Viewer for Office plugin, you can view Microsoft Word, Excel, PowerPoint, and more files in WordPress using shortcode
 
 == Description ==
 
-View Microsoft Word, Excel, Powerpoint, more... files in WordPress using shortcode.
+If you have Office documents on your website or blog that you want your readers to view even if they don’t have Office installed? Would you rather view a document before downloading it? To give your audience a better experience, try the Office Web Viewer.
 
-If you have Office documents on your website or blog that you want your readers to view even if they don’t have Office installed?  Would you rather view a document before downloading it?  To give your audience a better experience, try the Office Web Viewer.
+This WordPress plugin offers seamless integration of document viewing using two popular viewer types: Google Doc Viewer and Microsoft Online Viewer. Easily customize the layout of your documents by adjusting width and height settings to match your desired design.
+
+Unlock additional features with the pro version, including the ability to select documents directly from Google Drive, OneDrive, or Dropbox. View documents using the Google Doc Viewer for enhanced compatibility and functionality. 
+
+Control user experience by enabling or disabling pop-out options, displaying or hiding the file name at the top, and toggling the download button for easy access.
+
+Enhance document security by enabling or disabling right-click functionality as needed. With these advanced features, managing and presenting documents on your WordPress site becomes more efficient and user-friendly.
+
 
 **[See Live Demo](https://bplugins.com/products/document-viewer/#demos "Demo")** 
 **[Buy The Pro](https://bplugins.com/products/document-viewer/#pricing "Buy Pro version")** 
@@ -26,7 +33,14 @@ If you have Office documents on your website or blog that you want your readers 
 - You don’t need to convert Office files for the web (e.g., PDF, HTML).
 - Anyone can view Office files from your website or blog, even if they don’t have Office.
 
-== Pro Features ==
+### Document Viewer Free Features:
+
+- 2 viewer types such as Google Doc Viewer or Microsoft Online Viewer
+- Add width and height to customize the layout of the Document.
+
+
+### Document Viewer Pro Features
+
 - Choose Document From Google Drive
 - Choose Document From OneDrive
 - Choose Document From Dropbox
@@ -34,12 +48,43 @@ If you have Office documents on your website or blog that you want your readers 
 - Disable/Enable Pop-out
 - Show/Hide File Name in Top
 - Show/Hide Download Button on Top
-- Disbale/Enable Right Click
+- Disable/Enable Right Click
+
+
+### User Feedback
+
+#### ⭐⭐⭐⭐⭐ [Impressively Stable](https://wordpress.org/support/topic/impressively-stable/)
+
+❛❛***Nice wp plugin ever. I’ve use it for 4 years.***❜❜
+
+***-[aircess](https://wordpress.org/support/users/aircess/)***
+
+
+#### ⭐⭐⭐⭐⭐ [Does the job well.](https://wordpress.org/support/topic/does-the-job-well-131/)
+
+❛❛***This plugin works fine***❜❜
+
+***-[muhammadarooj](https://wordpress.org/support/users/muhammadarooj/)***
+
+
+#### ⭐⭐⭐⭐⭐ [Exactly What I Need](https://wordpress.org/support/topic/exactly-what-i-need-161/)
+
+❛❛***I am a theatre director and I use my website to communicate with my performers and technical crews.
+
+I wanted to SHOW them documents in situ as well as enable them to easily download them and, after looking at other solutions, this plugin is PERFECT for this.
+
+I am delighted with it and cannot recommend it highly enough.***❜❜
+
+***-[jfortune](https://wordpress.org/support/users/jfortune/)***
+
+
+#### - Did you like this plugin? Dislike it? Have a feature request? [Please share your feedback with us](mailto:support@bplugins.com 'Send feedback')
+
 
 
 = How It Works = 
 
-- Your Document will be embed in your site , blog via a iframe which is service of Office Web Viewer 
+- Your Document will be embed in your site, blog via a iframe which is service of Office Web Viewer 
 
 - This plugin use Office Web Viewer service of Microsoft [Read More About Office Web viewer](http://officewebviewer.com "Read More") 
 - Terms Of Service : [Microsoft's Terms of service ](https://go.microsoft.com/fwlink/?LinkID=206977  "Terms") 
@@ -67,7 +112,7 @@ Microsoft Word, Excel, And Powerpoint Document
 
 '.ppt' '.pptx' '.doc', '.docx', '.xls', '.xlsx'
 
-= I Would like to support Your Project what is the best way to support ?  =
+= I Would like to support Your Project what is the best way to support?  =
 
 Thanks for your interest. You can donate any amount by visiting  [Here](https://gum.co/wpdonate  "Donate Now")
 
@@ -81,8 +126,10 @@ Thanks for your interest. You can donate any amount by visiting  [Here](https://
 5. Frontend preview of a excel File
 
 
-
 == Changelog ==
+
+= 2.2.7 =
+* Update Freemius WordPress SDK
 
 = 2.2.5 =
 * Update Freemius WordPress SDK

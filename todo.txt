@@ -1,0 +1,4 @@
+Hi the embed any document has an add document button so it makes it easier for a client to add where they want it. I was hoping yours had a similar way of doing this. Otherwise is there a way to have a select the shortcode within the page as there will be at least 20 on the page and makes it difficult for a client to work it out.
+Thanks
+
+

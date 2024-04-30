@@ -16,7 +16,7 @@ class Template extends Style{
         if($isPPTX){
             self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => 'calc(100% - 30px)']);
         }else {
-            self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => '600%']);
+            self::addStyle("#".self::$uniqid.' #block', ['position' => 'absolute', 'top' => '0', 'right' => '20px', 'width' => '100%', 'height' => 'calc(100% - 55px)']);
         }
 
         if($data['disableFullscreen']){

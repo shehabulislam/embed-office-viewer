@@ -67,25 +67,21 @@
       folderselect: false, // or true
       //sizeLimit: 1024, // or any positive number
     };
-    var button = Dropbox.createChooseButton(options);
-    //document.getElementById("container").appendChild(button);
-    $("#dropbox_cloud_file_url").parent().append(button);
-    // const dropbox_apikey = $("#eov_dropbox_appkey").val();
-    // if (dropbox_apikey != '') {
-    //     $("<a href='#' class='button button-primary' style='margin-left:30px;' id='dropbox_api_connect'>Connect</a>").insertAfter("#eov_dropbox_appkey");
-    // } else {
-    //     $(" <span style='color:#c3c0c0;margin-left:10px;'> please fill out the box, save and refresh. you will get a connect button here</span>").insertAfter("#eov_dropbox_appkey");
-    // }
 
-    $("#dropbox_api_connect").on("click", function (e) {
-      Dropbox.choose({
-        linkType: "preview",
-        multiselect: false,
-        folderselect: false,
-        success: function (data) {},
+    if (window.Dropbox) {
+      var button = Dropbox.createChooseButton(options);
+      $("#dropbox_cloud_file_url").parent().append(button);
+
+      $("#dropbox_api_connect").on("click", function (e) {
+        Dropbox.choose({
+          linkType: "preview",
+          multiselect: false,
+          folderselect: false,
+          success: function (data) {},
+        });
+        e.preventDefault();
       });
-      e.preventDefault();
-    });
+    }
 
     /* OneDrive Picker */
     $("<a href='#' class='button button-primary' id='eov_onedrive_picker'>Choose From OneDrive</a>").insertAfter("#eov_ondeive_file_url");
@@ -115,40 +111,9 @@
       }
     });
 
-    // const client_id = $("#eov_onedrive_optoin_client_id").val();
-    // console.log(client_id);
-    // if (client_id != '') {
-    //     $("<a href='#' class='button button-primary' id='eov_onedrive_picker'>Connect</a>").insertAfter("#eov_onedrive_optoin_client_id");
-    // } else {
-    //     $(" <span style='color:#c3c0c0;margin-left:10px;'> please fill out the box, save and refresh. you will get a connect button here</span>").insertAfter("#eov_onedrive_optoin_client_id");
-    // }
-    // $("#eov_onedrive_picker").on('click', function () {
-    //     if (eov.client_id == '') {
-    //         alert('please Set Application (Client) ID From Cloud API Settings');
-    //     } else {
-    //         var odOptions = {
-    //             clientId: eov.client_id,
-    //             action: "share",
-    //             multiSelect: false,
-    //             advanced: {
-    //                 createLinkParameters: { type: 'embed', scope: 'anonymous' },
-    //                 redirectUri: window.location.href
-    //             },
-    //             success: function (files) {
-    //                 //$("#eov_ondeive_file_url").val(files.value[0].permissions[0].link.webUrl);
-    //             },
-    //             cancel: function () { /* cancel handler */ },
-    //             error: function (error) { /* error handler */ }
-    //         }
-    //         OneDrive.open(odOptions);
-    //     }
-    // });
-
     /* Google Picker */
     const website = "//" + window.location.hostname;
-    $("<a href='#' class='button button-primary' id='eov_google_picker' onclick='openPicker()'>Choose From Google Drive</a>").insertAfter(
-      "#eov_google_document_url"
-    );
+    $("<a href='#' class='button button-primary' id='eov_google_picker' onclick='openPicker()'>Choose From Google Drive</a>").insertAfter("#eov_google_document_url");
 
     $(
       "<div id='google_empty_alert'><div class='alert_text'><span>×</span><p>Please, Configure Google API From <a target='_blank' href='" +
