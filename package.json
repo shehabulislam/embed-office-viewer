@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start": "webpack --mode=development --watch",
+    "build": "webpack --mode=production && gulp bundle && gulp zip && node empty.js",
+    "deploy": "gulp bundle && gulp zip && node empty.js && gulp freemius-deploy"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-freemius-deploy": "^1.0.11",
+    "gulp-zip": "^5.1.0",
+    "rimraf": "^3.0.2"
+  }
+}
