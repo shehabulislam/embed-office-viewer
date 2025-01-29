@@ -2,8 +2,8 @@
 Contributors: bplugins,shehabulislam, freemius
 Tags: Embed document, ms word, pdf, document viewer
 Requires at least: 5.6
-Tested up to: 6.5.5
-Stable tag: 2.2.9
+Tested up to: 6.7
+Stable tag: 2.2.10
 Requires PHP: 7.1
 Donate link: https://www.buymeacoffee.com/abuhayat
 License: GPLv3 or later
@@ -127,6 +127,9 @@ Thanks for your interest. You can donate any amount by visiting  [Here](https://
 
 
 == Changelog ==
+
+= 2.2.10 - 29 Jan, 2025 =
+* Update: WordPress SDK
 
 = 2.2.9 - 04/07/2024 =
 * Update: WordPress SDK
